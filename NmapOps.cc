@@ -414,6 +414,10 @@ bool NmapOps::RawScan() {
    return false;
 }
 
+char* NmapOps::ExtraPayload() {
+  get_random_bytes(extra_payload, extra_payload_length);
+  return extra_payload;
+}
 
 void NmapOps::ValidateOptions() {
         const char *privreq = "root privileges.";

@@ -174,6 +174,7 @@ class NmapOps {
   /* Whether we have pcap functions (can be false on Windows). */
   bool have_pcap;
   int debugging;
+  char* ExtraPayload(); /* Returns random payload ("--data-length") */
 
 #define PACKET_SEND_NOPREF 1
 #define PACKET_SEND_ETH_WEAK 2
@@ -281,7 +282,7 @@ class NmapOps {
   int max_ips_to_scan; // Used for Random input (-iR) to specify how
                        // many IPs to try before stopping. 0 means unlimited.
   int extra_payload_length; /* These two are for --data-length op */
-  char *extra_payload;
+  char* extra_payload;
   unsigned long host_timeout;
   /* Delay between probes, in milliseconds */
   unsigned int scan_delay;

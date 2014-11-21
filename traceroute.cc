@@ -725,7 +725,7 @@ public:
     return build_icmp_raw(&sin->sin_addr, host->target->v4hostip(), ttl,
       0x0000, 0x00, false, NULL, 0, token, global_id,
       pspec.pd.icmp.type, pspec.pd.icmp.code,
-      o.extra_payload, o.extra_payload_length, len);
+      o.ExtraPayload(), o.extra_payload_length, len);
   }
 };
 
@@ -758,14 +758,14 @@ public:
         get_random_u16(), get_random_u8(), false, NULL, 0,
         token ^ global_id, pspec.pd.tcp.dport, get_random_u32(), ack, 0x00,
         pspec.pd.tcp.flags, get_random_u16(), 0, (const u8 *) tcpopts, tcpoptslen,
-        o.extra_payload, o.extra_payload_length, len);
+        o.ExtraPayload(), o.extra_payload_length, len);
     } else if (source->ss_family == AF_INET6) {
       const struct sockaddr_in6 *sin6 = (struct sockaddr_in6 *) source;
       return build_tcp_raw_ipv6(&sin6->sin6_addr, host->target->v6hostip(),
         0, 0, ttl,
         token ^ global_id, pspec.pd.tcp.dport, get_random_u32(), ack, 0x00,
         pspec.pd.tcp.flags, get_random_u16(), 0, (const u8 *) tcpopts, tcpoptslen,
-        o.extra_payload, o.extra_payload_length, len);
+        o.ExtraPayload(), o.extra_payload_length, len);
     } else {
       fatal("Unknown address family %u in %s.", source->ss_family, __func__);
     }
@@ -821,14 +821,14 @@ public:
         get_random_u16(), get_random_u8(), false, NULL, 0,
         token ^ global_id, pspec.pd.sctp.dport, 0UL,
         (char *) &chunk, sizeof(chunk),
-        o.extra_payload, o.extra_payload_length, len);
+        o.ExtraPayload(), o.extra_payload_length, len);
     } else if (source->ss_family == AF_INET6) {
       const struct sockaddr_in6 *sin6 = (struct sockaddr_in6 *) source;
       return build_sctp_raw_ipv6(&sin6->sin6_addr, host->target->v6hostip(),
         0, 0, ttl,
         token ^ global_id, pspec.pd.sctp.dport, 0UL,
         (char *) &chunk, sizeof(chunk),
-        o.extra_payload, o.extra_payload_length, len);
+        o.ExtraPayload(), o.extra_payload_length, len);
     } else {
       fatal("Unknown address family %u in %s.", source->ss_family, __func__);
     }
@@ -847,12 +847,12 @@ public:
       const struct sockaddr_in *sin = (struct sockaddr_in *) source;
       return build_ip_raw(&sin->sin_addr, host->target->v4hostip(), pspec.proto, ttl,
         token ^ global_id, get_random_u8(), false, NULL, 0,
-        o.extra_payload, o.extra_payload_length, len);
+        o.ExtraPayload(), o.extra_payload_length, len);
     } else if (source->ss_family == AF_INET6) {
       const struct sockaddr_in6 *sin6 = (struct sockaddr_in6 *) source;
       return build_ipv6_raw(&sin6->sin6_addr, host->target->v6hostip(),
         0, token ^ global_id, pspec.proto, ttl,
-        o.extra_payload, o.extra_payload_length, len);
+        o.ExtraPayload(), o.extra_payload_length, len);
     } else {
       fatal("Unknown address family %u in %s.", source->ss_family, __func__);
     }
@@ -872,7 +872,7 @@ public:
     sin6 = (struct sockaddr_in6 *) source;
     return build_icmpv6_raw(&sin6->sin6_addr, host->target->v6hostip(), 0x00, 0x0000,
       ttl, token, global_id, pspec.pd.icmp.type, pspec.pd.icmp.code,
-      o.extra_payload, o.extra_payload_length, len);
+      o.ExtraPayload(), o.extra_payload_length, len);
   }
 };
 

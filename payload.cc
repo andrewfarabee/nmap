@@ -413,7 +413,7 @@ const char *udp_port2payload(u16 dport, size_t *length) {
 const char *get_udp_payload(u16 dport, size_t *length) {
   if (o.extra_payload != NULL) {
     *length = o.extra_payload_length;
-    return o.extra_payload;
+    return o.ExtraPayload();
   } else {
     return udp_port2payload(dport, length);
   }
